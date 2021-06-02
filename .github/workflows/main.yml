@@ -40,7 +40,7 @@ jobs:
           context: ./
           push: true
           file: ./Dockerfile
-          tags: cloud.canister.io:5000/{{ secrets.CANISTER_USERNAME }}/velocargo-api:latest
+          tags: cloud.canister.io:5000/${{ secrets.CANISTER_USERNAME }}/velocargo-api:latest
 
       # - name: Publish to Registry
       #   id: docker_build
