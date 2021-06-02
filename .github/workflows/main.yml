@@ -42,7 +42,7 @@ jobs:
           name: ${{ secrets.CANISTER_USERNAME }}/velocargo-api
           username: ${{ secrets.CANISTER_USERNAME }}
           password: ${{ secrets.CANISTER_PASSWORD }}
-          tags: latest
+          tags: "latest"
           registry: cloud.canister.io:5000
 
       #     - name: Build and push
