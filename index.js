@@ -1,12 +1,13 @@
 const express = require("express");
 const app = express();
 
-const port = 3000;
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-app.get("/", (request, response) => {
-  response.send("Welcome to Express - modif");
-});
+require("./routes")(app);
 
-app.listen(port, () => {
-  console.log(`Server is runing on ${port}`);
+const serverPort = 3000;
+
+app.listen(serverPort, () => {
+  console.log(`Server is listening port ${serverPort}`);
 });
