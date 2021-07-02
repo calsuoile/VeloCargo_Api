@@ -10,7 +10,6 @@ const create = async ({
   phone_number,
   email,
   photo,
-  created_at,
   password,
   city,
 }) => {
@@ -24,7 +23,7 @@ const create = async ({
         phone_number,
         email,
         photo,
-        created_at,
+        new Date(),
         password,
         city,
       ]
