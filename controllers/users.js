@@ -1,4 +1,10 @@
-const { findMany, create, findByEmail } = require("../models/users");
+const {
+  findMany,
+  getOneUser,
+  create,
+  update,
+  findByEmail,
+} = require("../models/users");
 const {
   hashPassword,
   validatePassword,
@@ -6,8 +12,13 @@ const {
 const jwt = require("jsonwebtoken");
 
 const getUsers = async (req, res) => {
-  const [data] = await findMany();
-  res.json(data);
+  const [users] = await findMany();
+  res.status(200).json(users);
+};
+
+const getUser = async (req, res) => {
+  const [user] = await getOneUser(req.params.id);
+  res.status(200).json(user);
 };
 
 const createUser = async (req, res) => {
@@ -16,9 +27,18 @@ const createUser = async (req, res) => {
       ...req.body,
       password: await hashPassword(req.body.password),
     });
-    res.status(200).send("ok");
-  } catch (error) {
-    res.status(500).send("Error");
+    res.status(201).send("User has been created");
+  } catch (err) {
+    res.status(500).send("Error creating user");
+  }
+};
+
+const updateUser = async (req, res) => {
+  try {
+    await update(req.params.id, req.body);
+    res.status(200).send("User has been updated");
+  } catch (err) {
+    res.status(500).send("Error updating user");
   }
 };
 
@@ -45,7 +65,14 @@ const loginUser = async (req, res) => {
 };
 
 const getProfile = async (req, res) => {
-    res.json(req.user);
+  res.json(req.user);
 };
 
-module.exports = { getUsers, createUser, loginUser, getProfile };
+module.exports = {
+  getUsers,
+  getUser,
+  createUser,
+  updateUser,
+  loginUser,
+  getProfile,
+};

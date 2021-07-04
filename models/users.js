@@ -1,10 +1,14 @@
 const db = require("../db");
 
-const findMany = async () => {
+const findMany = () => {
   return db.promise().query("SELECT * FROM users");
 };
 
-const create = async ({
+const getOneUser = (id) => {
+  return db.promise().query("SELECT * FROM users WHERE id= ?", id);
+};
+
+const create = ({
   firstname,
   lastname,
   phone_number,
@@ -30,8 +34,20 @@ const create = async ({
     );
 };
 
-const findByEmail = async (email) => {
-    return db.promise().query("SELECT * FROM users WHERE email = ?", [email]);
+const update = (
+  id,
+  { firstname, lastname, phone_number, email, photo, password, city }
+) => {
+  return db
+    .promise()
+    .query(
+      "UPDATE users SET firstname=?, lastname=?, phone_number=?, email=?, photo=?, password=?, city=? WHERE id=?",
+      [firstname, lastname, phone_number, email, photo, password, city, id]
+    );
 };
 
-module.exports = { findMany, create, findByEmail };
+const findByEmail = async (email) => {
+  return db.promise().query("SELECT * FROM users WHERE email = ?", [email]);
+};
+
+module.exports = { findMany, getOneUser, create, update, findByEmail };
