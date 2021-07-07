@@ -36,7 +36,7 @@ jobs:
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
-      - name: deploy containers
+      - name: Deploy containers
         uses: garygrossgarten/github-action-ssh@release
         with:
           command: cd /home/ubuntu/velocargo && ./deploy.sh
