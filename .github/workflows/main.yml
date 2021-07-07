@@ -36,10 +36,10 @@ jobs:
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
-      - name: ls -a via ssh
+      - name: deploy containers
         uses: garygrossgarten/github-action-ssh@release
         with:
-          command: ls -a
+          command: cd /home/ubuntu/velocargo && ./deploy.sh
           host: ${{ secrets.HOST }}
           username: ubuntu
           privateKey: ${{ secrets.PRIVATE_KEY }}
