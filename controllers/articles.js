@@ -7,7 +7,7 @@ const {
 } = require("../models/articles");
 
 const getArticles = async (req, res) => {
-  const [articles] = await findMany();
+  const [articles] = await findMany(req.query);
   res.status(200).json(articles);
 };
 
@@ -37,7 +37,7 @@ const updateArticle = async (req, res) => {
 const deleteArticle = async (req, res) => {
   try {
     await delete_(req.params.id);
-    res.status(204);
+    res.status(204).send();
   } catch (err) {
     res.status(500).send("Error deleting article");
   }
