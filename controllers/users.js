@@ -29,6 +29,7 @@ const createUser = async (req, res) => {
     });
     res.status(201).send("User has been created");
   } catch (err) {
+    console.log(err);
     res.status(500).send("Error creating user");
   }
 };
