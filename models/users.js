@@ -8,6 +8,20 @@ const getOneUser = (id) => {
   return db.promise().query("SELECT * FROM users WHERE id= ?", id);
 };
 
+const getFavorites = (id) => {
+  return db.promise().query("SELECT * FROM users JOIN favorites ON users.id = favorites.user_id JOIN ads ON ads.id = favorites.ad_id WHERE users.id= ?", [id])
+};
+
+const getOneUserAds = (id) => {
+  return db.promise().query("SELECT * FROM ads WHERE user_id = ?", [id])
+};
+
+
+const createFav = ({ user_id, ad_id }) => {
+  console.log(user_id, ad_id);
+    return db.promise().query("INSERT INTO favorites (user_id, ad_id) VALUES (? ,?)", [user_id, ad_id])
+};
+
 const create = ({
   firstname,
   lastname,
@@ -16,11 +30,12 @@ const create = ({
   photo,
   password,
   city,
+  role
 }) => {
   return db
     .promise()
     .query(
-      "INSERT INTO users (firstname, lastname, phone_number, email, photo, created_at, password, city) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO users (firstname, lastname, phone_number, email, photo, created_at, password, city, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
         firstname,
         lastname,
@@ -30,19 +45,20 @@ const create = ({
         new Date(),
         password,
         city,
+        role
       ]
     );
 };
 
 const update = (
   id,
-  { firstname, lastname, phone_number, email, photo, password, city }
+  newAttributes
 ) => {
   return db
     .promise()
     .query(
-      "UPDATE users SET firstname=?, lastname=?, phone_number=?, email=?, photo=?, password=?, city=? WHERE id=?",
-      [firstname, lastname, phone_number, email, photo, password, city, id]
+      "UPDATE users SET ? WHERE id=?",
+      [newAttributes, id]
     );
 };
 
@@ -50,4 +66,5 @@ const findByEmail = async (email) => {
   return db.promise().query("SELECT * FROM users WHERE email = ?", [email]);
 };
 
-module.exports = { findMany, getOneUser, create, update, findByEmail };
+
+module.exports = { findMany, getOneUser, create, update, findByEmail, getFavorites, createFav, getOneUserAds };
