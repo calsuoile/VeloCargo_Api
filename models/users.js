@@ -29,8 +29,7 @@ const create = ({
   email,
   photo,
   password,
-  city,
-  role
+  city
 }) => {
   return db
     .promise()
@@ -45,7 +44,7 @@ const create = ({
         new Date(),
         password,
         city,
-        role
+        "role_client"
       ]
     );
 };
