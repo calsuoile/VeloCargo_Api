@@ -43,7 +43,7 @@ const create = ({
   phone_number,
   email,
   password,
-  city,
+  city
 }) => {
   return db
     .promise()
@@ -57,7 +57,7 @@ const create = ({
         new Date(),
         password,
         city,
-        "role_client",
+        "role_client"
       ]
     );
 };
