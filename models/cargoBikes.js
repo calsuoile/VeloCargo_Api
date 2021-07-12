@@ -1,13 +1,16 @@
 const db = require("../db");
 
+//récupère tous les vélos cargo:
 const findMany = () => {
   return db.promise().query("SELECT * FROM cargo_bike");
 };
 
+//récupère un vélo cargo:
 const getOneCargoBike = (id) => {
   return db.promise().query("SELECT * FROM cargo_bike WHERE id=?", [id]);
 };
 
+//crée un vélo cargo:
 const create = async ({
   type,
   country,

@@ -1,13 +1,16 @@
 const db = require("../db");
 
+//récupère toutes les remorques:
 const findMany = () => {
   return db.promise().query("SELECT * FROM trailer");
 };
 
+//récupère une remorque:
 const getOneTrailer = (id) => {
   return db.promise().query("SELECT * FROM trailer WHERE id=?", [id]);
 };
 
+//crée une remorque:
 const create = async ({
   country,
   department,

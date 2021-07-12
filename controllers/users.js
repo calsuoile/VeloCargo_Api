@@ -6,7 +6,7 @@ const {
   findByEmail,
   createFav,
   getFavorites,
-  getOneUserAds
+  getOneUserAds,
 } = require("../models/users");
 const {
   hashPassword,
@@ -48,7 +48,7 @@ const createUser = async (req, res) => {
   try {
     await create({
       ...req.body,
-      password: await hashPassword(req.body.password),
+      password: await hashPassword(req.body.password), //crypte le MDP du user
     });
     res.status(201).send("User has been created");
   } catch (err) {
@@ -65,6 +65,7 @@ const updateUser = async (req, res) => {
   }
 };
 
+//authorisations
 const loginUser = async (req, res) => {
   const [user] = await findByEmail(req.body?.email);
   if (!user) {
