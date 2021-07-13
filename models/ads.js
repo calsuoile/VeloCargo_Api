@@ -34,6 +34,7 @@ const getOneAd = (id) => {
 //crée une annonce:
 const create = ({
   title,
+  type,
   description,
   photo,
   price,
@@ -44,9 +45,10 @@ const create = ({
   return db
     .promise()
     .query(
-      "INSERT INTO ads (title, created_at, description, photo, price, cargo_bike_id, trailer_id, accessories_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO ads (title, type, created_at, description, photo, price, cargo_bike_id, trailer_id, accessories_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
         title,
+        type,
         new Date(),
         description,
         photo,
