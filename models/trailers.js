@@ -50,4 +50,9 @@ const create = async ({
   return data[0];
 };
 
-module.exports = { findMany, create, getOneTrailer };
+//supprime une remorque:
+const delete_ = (id) => {
+  return db.promise().query("DELETE FROM trailer WHERE id=?", [id]);
+};
+
+module.exports = { findMany, create, getOneTrailer, delete_ };

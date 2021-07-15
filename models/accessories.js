@@ -44,4 +44,9 @@ const create = async ({
   return data[0];
 };
 
-module.exports = { findMany, create, getOneAccessory };
+//supprime un accessoire:
+const delete_ = (id) => {
+  return db.promise().query("DELETE FROM accessories WHERE id=?", [id]);
+};
+
+module.exports = { findMany, create, getOneAccessory, delete_ };

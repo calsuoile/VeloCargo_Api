@@ -1,4 +1,9 @@
-const { findMany, create, getOneTrailer } = require("../models/trailers");
+const {
+  findMany,
+  create,
+  getOneTrailer,
+  delete_,
+} = require("../models/trailers");
 const { create: createAds } = require("../models/ads");
 
 const getTrailers = async (req, res) => {
@@ -17,8 +22,16 @@ const createTrailer = async (req, res) => {
     await createAds({ ...req.body, trailerId: trailerId.id });
     res.status(201).send("Trailer has been created");
   } catch (err) {
-    console.log(err);
     res.status(500).send("Error creating trailer");
+  }
+};
+
+const deleteTrailer = async (req, res) => {
+  try {
+    await delete_(req.params.id);
+    res.status(204).send();
+  } catch (err) {
+    res.status(500).send("Error deleting trailer");
   }
 };
 
@@ -26,4 +39,5 @@ module.exports = {
   getTrailers,
   getTrailer,
   createTrailer,
+  deleteTrailer,
 };
