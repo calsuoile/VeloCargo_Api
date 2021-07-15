@@ -81,7 +81,7 @@ const loginUser = async (req, res) => {
   };
 
   res.json({
-    acces_token: jwt.sign(payload, process.env.JWT_SECRET, {
+    access_token: jwt.sign(payload, process.env.JWT_SECRET, {
       algorithm: "HS256",
       expiresIn: 3600 * 24,
     }),

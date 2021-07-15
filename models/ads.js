@@ -27,12 +27,31 @@ const getOneAd = (id) => {
     );
 };
 
-const create = ({ title, description, photo, price, cargobikeId, trailerId, accessoryId }) => {
+const create = ({
+  title,
+  type,
+  description,
+  photo,
+  price,
+  cargobikeId,
+  trailerId,
+  accessoryId,
+}) => {
   return db
     .promise()
     .query(
-      "INSERT INTO ads (title, created_at, description, photo, price, cargo_bike_id, trailer_id, accessories_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-      [title, new Date(), description, photo, price, cargobikeId, trailerId, accessoryId]
+      "INSERT INTO ads (title, type, created_at, description, photo, price, cargo_bike_id, trailer_id, accessories_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      [
+        title,
+        type,
+        new Date(),
+        description,
+        photo.toString(),
+        parseInt(price) ? parseInt(price) : null,
+        cargobikeId,
+        trailerId,
+        accessoryId,
+      ]
     );
 };
 
