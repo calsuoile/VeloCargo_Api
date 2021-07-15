@@ -17,6 +17,7 @@ const createCargoBike = async (req, res) => {
     await createAds({ ...req.body, cargobikeId: cargobikeId.id });
     res.status(201).send("Cargobike has been created");
   } catch (err) {
+    console.log(err);
     res.status(500).send("Error creating cargobike");
   }
 };
