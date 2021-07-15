@@ -5,12 +5,9 @@ const {
   getArticle,
   updateArticle,
   deleteArticle,
-  // getArticlesByKeyword,
-
 } = require("../controllers/articles");
 
 articlesRouter.get("/", getArticles);
-// articlesRouter.get("/", getArticlesByKeyword);
 articlesRouter.get("/:id", getArticle);
 articlesRouter.post("/", createArticle);
 articlesRouter.patch("/:id", updateArticle);

@@ -17,6 +17,7 @@ const createAccessory = async (req, res) => {
     await createAds({ ...req.body, accessoryId: accessoryId.id });
     res.status(201).send("Accessory has been created");
   } catch (err) {
+      console.log(err);
     res.status(500).send("Error creating accessory");
   }
 };

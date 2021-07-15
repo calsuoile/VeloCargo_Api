@@ -1,13 +1,16 @@
 const db = require("../db");
 
+//récupère tous les accessoires:
 const findMany = () => {
   return db.promise().query("SELECT * FROM accessories");
 };
 
+//récupère un accessoire via id:
 const getOneAccessory = (id) => {
   return db.promise().query("SELECT * FROM accessories WHERE id=?", [id]);
 };
 
+//crée un accessoire:
 const create = async ({
   country,
   department,

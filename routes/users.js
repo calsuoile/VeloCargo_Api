@@ -19,7 +19,7 @@ usersRouter.post("/", createUser);
 usersRouter.patch("/:id", updateUser);
 usersRouter.get("/:id/favorites", getUserFavorites);
 usersRouter.get("/:id/ads", getUserAds);
-usersRouter.post("/favorites", createFavorite)
+usersRouter.post("/favorites", createFavorite);
 usersRouter.post("/login", loginUser);
 
 module.exports = usersRouter;

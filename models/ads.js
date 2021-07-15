@@ -1,14 +1,17 @@
 const db = require("../db");
 const queryBuilder = require("./queryBuilder");
 
+//récupère toutes les annonces:
 const findMany = (criteria) => {
   const [filter, order, limit] = queryBuilder(criteria);
+  //si filtre il y a, retourne les annonces filtrées:
   if (filter) {
     return db
       .promise()
       .query(
         `SELECT ads.id AS ads_id, ads.*, CB.id AS cargo_bike_id, CB.*, ACC.id AS accessories_id, ACC.*, TRA.id AS trailer_id, TRA.* FROM ads LEFT JOIN cargo_bike AS CB ON ads.cargo_bike_id = CB.id LEFT JOIN accessories AS ACC ON ads.accessories_id = ACC.id LEFT JOIN trailer AS TRA ON ads.trailer_id = TRA.id WHERE ${filter} ${order} ${limit}`
       );
+    //sinon retourne tous les artciles:
   } else {
     return db
       .promise()
@@ -18,6 +21,7 @@ const findMany = (criteria) => {
   }
 };
 
+//récupère une annonce via id:
 const getOneAd = (id) => {
   return db
     .promise()
@@ -27,6 +31,10 @@ const getOneAd = (id) => {
     );
 };
 
+<<<<<<< HEAD
+=======
+//crée une annonce:
+>>>>>>> origin/dev
 const create = ({
   title,
   type,
@@ -46,8 +54,13 @@ const create = ({
         type,
         new Date(),
         description,
+<<<<<<< HEAD
         photo.toString(),
         parseInt(price) ? parseInt(price) : null,
+=======
+        photo,
+        price,
+>>>>>>> origin/dev
         cargobikeId,
         trailerId,
         accessoryId,
@@ -55,6 +68,7 @@ const create = ({
     );
 };
 
+//supprime une annonce:
 const delete_ = (id) => {
   return db.promise().query("DELETE FROM ads WHERE id=?", [id]);
 };
