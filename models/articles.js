@@ -1,15 +1,15 @@
 const db = require("../db");
 
 //récupère tous les acrticles:
-const findMany = ({ title }) => {
+const findMany = ({ title, limit=10, page=1 }) => {
   // si mot clé renseigné, retourne les articles comprenant le mot clé:
   if (title) {
     return db
       .promise()
-      .query("SELECT * FROM articles WHERE title LIKE ?", [`%${title}%`]);
+      .query(`SELECT * FROM articles WHERE title LIKE ? ORDER BY created_at DESC LIMIT ${limit} OFFSET ${(page - 1) * limit}`, [`%${title}%`]);
   }
   //sinon retourne tous les articles
-  return db.promise().query("SELECT * FROM articles");
+  return db.promise().query(`SELECT * FROM articles ORDER BY created_at DESC LIMIT ${limit} OFFSET ${(page - 1) * limit}`);
 };
 
 //récupère un artcile:

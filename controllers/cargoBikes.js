@@ -1,4 +1,9 @@
-const { findMany, create, getOneCargoBike } = require("../models/cargoBikes");
+const {
+  findMany,
+  create,
+  getOneCargoBike,
+  delete_,
+} = require("../models/cargoBikes");
 const { create: createAds } = require("../models/ads");
 
 const getCargoBikes = async (req, res) => {
@@ -21,8 +26,19 @@ const createCargoBike = async (req, res) => {
   }
 };
 
+const deleteCargoBike = async (req, res) => {
+  try {
+    await delete_(req.params.id);
+    res.status(204).send();
+  } catch (err) {
+      console.log(err)
+    res.status(500).send("Error deleting cargobike");
+  }
+};
+
 module.exports = {
   getCargoBikes,
   createCargoBike,
   getCargoBike,
+  deleteCargoBike,
 };

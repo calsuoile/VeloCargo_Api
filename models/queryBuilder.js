@@ -2,8 +2,8 @@ const queryBuilder = (criteria) => {
   const {
     sort = "created_at", //tri par date de création de l'annonce
     order = "desc", //sens décroissant
-    limit = "10", //limite de 10 annonces
-    page = "1", //par page
+    limit = 10, //limite de 10 annonces
+    page = 1, //par page
     ...rest
   } = criteria;
 
