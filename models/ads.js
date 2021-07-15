@@ -31,10 +31,7 @@ const getOneAd = (id) => {
     );
 };
 
-<<<<<<< HEAD
-=======
 //crée une annonce:
->>>>>>> origin/dev
 const create = ({
   title,
   type,
@@ -54,13 +51,8 @@ const create = ({
         type,
         new Date(),
         description,
-<<<<<<< HEAD
-        photo.toString(),
-        parseInt(price) ? parseInt(price) : null,
-=======
         photo,
         price,
->>>>>>> origin/dev
         cargobikeId,
         trailerId,
         accessoryId,

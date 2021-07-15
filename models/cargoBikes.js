@@ -48,17 +48,10 @@ const create = async ({
       esthetic_state,
       guarantee,
       info_guarantee,
-<<<<<<< HEAD
       parseFloat(volume_box) ? parseFloat(volume_box) : null,
       electric,
       parseInt(engine_power) ? parseInt(engine_power) : null,
       parseInt(battery_volt) ? parseInt(battery_volt) : null,
-=======
-      volume_box,
-      electric,
-      engine_power,
-      battery_volt,
->>>>>>> origin/dev
     ]
   );
   const [data] = await db.promise().query("SELECT LAST_INSERT_ID() AS id");
