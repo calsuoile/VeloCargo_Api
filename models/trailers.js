@@ -36,14 +36,14 @@ const create = async ({
       model,
       build_year,
       bicycode,
-      kms,
+      parseInt(kms) ? parseInt(kms) : null,
       general_state,
       mecanic_state,
       esthetic_state,
       guarantee,
-      max_load_kg,
-      max_children,
-      volume_trail,
+      parseInt(max_load_kg) ? parseInt(max_load_kg) : null,
+      parseInt(max_children) ? parseInt(max_children) : null,
+      parseFloat(volume_trail) ? parseFloat(volume_trail) : null,
     ]
   );
   const [data] = await db.promise().query("SELECT LAST_INSERT_ID() AS id");
