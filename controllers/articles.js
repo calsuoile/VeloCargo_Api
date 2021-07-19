@@ -7,8 +7,8 @@ const {
 } = require("../models/articles");
 
 const getArticles = async (req, res) => {
-  const [articles] = await findMany(req.query);
-  res.status(200).json(articles);
+  const [[articles], [count]] = await findMany(req.query);
+  res.status(200).json({ data: articles, metadata: count[0] });
 };
 
 const getArticle = async (req, res) => {
@@ -39,7 +39,7 @@ const deleteArticle = async (req, res) => {
     await delete_(req.params.id);
     res.status(204).send();
   } catch (err) {
-    console.log(err)
+    console.log(err);
     res.status(500).send("Error deleting article");
   }
 };
