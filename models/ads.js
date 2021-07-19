@@ -41,11 +41,22 @@ const create = ({
   cargobikeId,
   trailerId,
   accessoryId,
+  country,
+  department,
+  brand,
+  model,
+  build_year,
+  bicycode,
+  kms,
+  general_state,
+  mecanic_state,
+  esthetic_state,
+  guarantee,
 }) => {
   return db
     .promise()
     .query(
-      "INSERT INTO ads (title, type, created_at, description, photo, price, cargo_bike_id, trailer_id, accessories_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO ads (title, type, created_at, description, photo, price, cargo_bike_id, trailer_id, accessories_id, country, department, brand, model, build_year, bicycode, kms, general_state, mecanic_state, esthetic_state, guarantee) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
         title,
         type,
@@ -56,6 +67,17 @@ const create = ({
         cargobikeId,
         trailerId,
         accessoryId,
+        country,
+        department,
+        brand,
+        model,
+        parseInt(build_year) ? parseInt(build_year) : null,
+        bicycode,
+        parseInt(kms) ? parseInt(kms) : null,
+        general_state,
+        mecanic_state,
+        esthetic_state,
+        guarantee,
       ]
     );
 };
