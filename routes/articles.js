@@ -9,8 +9,8 @@ const {
 
 articlesRouter.get("/", getArticles);
 articlesRouter.get("/:id", getArticle);
-articlesRouter.post("/", createArticle);
-articlesRouter.patch("/:id", updateArticle);
-articlesRouter.delete("/:id", deleteArticle);
+articlesRouter.post("/", createArticle); // restrict to admin only
+articlesRouter.patch("/:id", updateArticle); // restrict to admin only
+articlesRouter.delete("/:id", deleteArticle); // restrict to admin only
 
 module.exports = articlesRouter;

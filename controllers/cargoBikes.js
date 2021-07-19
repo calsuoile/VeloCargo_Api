@@ -32,7 +32,7 @@ const deleteCargoBike = async (req, res) => {
     await delete_(req.params.id);
     res.status(204).send();
   } catch (err) {
-      console.log(err)
+    console.log(err);
     res.status(500).send("Error deleting cargobike");
   }
 };
