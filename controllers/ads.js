@@ -6,8 +6,8 @@ const getAd = async (req, res) => {
 };
 
 const getAds = async (req, res) => {
-  const [ads] = await findMany(req.query);
-  res.status(200).json(ads);
+  const [[ads], [count]] = await findMany(req.query);
+  res.status(200).json({ data: ads, metadata: count[0] });
 };
 
 const deleteAd = async (req, res) => {
