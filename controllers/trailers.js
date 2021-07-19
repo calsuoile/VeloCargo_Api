@@ -19,7 +19,11 @@ const getTrailer = async (req, res) => {
 const createTrailer = async (req, res) => {
   try {
     const trailerId = await create(req.body);
-    await createAds({ ...req.body, trailerId: trailerId.id });
+    await createAds({
+      ...req.body,
+      trailerId: trailerId.id,
+      userId: req.user?.id,
+    });
     res.status(201).send("Trailer has been created");
   } catch (err) {
     res.status(500).send("Error creating trailer");

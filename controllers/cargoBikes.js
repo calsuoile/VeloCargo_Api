@@ -19,7 +19,11 @@ const getCargoBike = async (req, res) => {
 const createCargoBike = async (req, res) => {
   try {
     const cargobikeId = await create(req.body);
-    await createAds({ ...req.body, cargobikeId: cargobikeId.id });
+    await createAds({
+      ...req.body,
+      cargobikeId: cargobikeId.id,
+      userId: req.user?.id,
+    });
     res.status(201).send("Cargobike has been created");
   } catch (err) {
     console.log(err);

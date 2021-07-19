@@ -1,4 +1,4 @@
-const { findMany, create, getOneAd, delete_ } = require("../models/ads");
+const { findMany, getOneAd, delete_ } = require("../models/ads");
 
 const getAd = async (req, res) => {
   const [ad] = await getOneAd(req.params.id);
@@ -8,15 +8,6 @@ const getAd = async (req, res) => {
 const getAds = async (req, res) => {
   const [ads] = await findMany(req.query);
   res.status(200).json(ads);
-};
-
-const createAd = async (req, res) => {
-  try {
-    await create(req.body);
-    res.status(201).send("Ad has been created");
-  } catch (err) {
-    res.status(500).send("Error creating ad");
-  }
 };
 
 const deleteAd = async (req, res) => {
@@ -30,7 +21,6 @@ const deleteAd = async (req, res) => {
 
 module.exports = {
   getAds,
-  createAd,
   getAd,
   deleteAd,
 };

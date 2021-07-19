@@ -34,7 +34,7 @@ CREATE TABLE `ads` (
   `build_year` year,
   `bicycode` varchar(12),
   `kms` int,
-  `general_state` varchar(255) NOT NULL,
+  `general_state` varchar(255),
   `mecanic_state` varchar(255),
   `esthetic_state` varchar(255),
   `guarantee` boolean

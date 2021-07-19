@@ -52,11 +52,12 @@ const create = ({
   mecanic_state,
   esthetic_state,
   guarantee,
+  userId,
 }) => {
   return db
     .promise()
     .query(
-      "INSERT INTO ads (title, type, created_at, description, photo, price, cargo_bike_id, trailer_id, accessories_id, country, department, brand, model, build_year, bicycode, kms, general_state, mecanic_state, esthetic_state, guarantee) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO ads (title, type, created_at, description, photo, price, cargo_bike_id, trailer_id, accessories_id, country, department, brand, model, build_year, bicycode, kms, general_state, mecanic_state, esthetic_state, guarantee, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
         title,
         type,
@@ -78,6 +79,7 @@ const create = ({
         mecanic_state,
         esthetic_state,
         guarantee,
+        parseInt(userId),
       ]
     );
 };
