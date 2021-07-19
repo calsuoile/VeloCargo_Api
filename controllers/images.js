@@ -4,7 +4,7 @@ const crypto = require("crypto");
 const getToken = (req, res) => {
   var token = req.query.token || uuid.v4();
   var expire = req.query.expire || parseInt(Date.now() / 1000) + 2400;
-  var privateAPIKey = `${privateKey}`;
+  var privateAPIKey = `${process.env.PRIVATE_KEY}`;
   var signature = crypto
     .createHmac("sha1", privateAPIKey)
     .update(token + expire)
