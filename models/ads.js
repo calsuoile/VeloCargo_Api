@@ -3,7 +3,7 @@ const queryBuilder = require("./queryBuilder");
 
 //récupère toutes les annonces:
 const findMany = (criteria) => {
-  const [filter, order, limit] = queryBuilder(criteria);
+  const [filter, order, limit] = queryBuilder({ ...criteria, sold: "false" });
   //si filtre il y a, retourne les annonces filtrées:
   if (filter) {
     return Promise.all([
@@ -71,7 +71,7 @@ const create = ({
   return db
     .promise()
     .query(
-      "INSERT INTO ads (title, type, created_at, description, photo, price, cargo_bike_id, trailer_id, accessories_id, country, department, brand, model, build_year, bicycode, kms, general_state, mecanic_state, esthetic_state, guarantee, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO ads (title, type, created_at, description, photo, price, cargo_bike_id, trailer_id, accessories_id, country, department, brand, model, build_year, bicycode, kms, general_state, mecanic_state, esthetic_state, guarantee, user_id, sold) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
         title,
         type,
@@ -94,13 +94,19 @@ const create = ({
         esthetic_state,
         guarantee,
         parseInt(userId),
+        0,
       ]
     );
 };
 
 //supprime une annonce:
-const delete_ = (id) => {
-  return db.promise().query("DELETE FROM ads WHERE id=?", [id]);
+const delete_ = (soldOnWebsite, id, userId) => {
+  return db
+    .promise()
+    .query(
+      "UPDATE ads SET sold=true, sold_on_website=? WHERE id=? and user_id=?",
+      [soldOnWebsite, id, userId]
+    );
 };
 
 module.exports = {

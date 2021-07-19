@@ -12,9 +12,10 @@ const getAds = async (req, res) => {
 
 const deleteAd = async (req, res) => {
   try {
-    await delete_(req.params.id);
+    await delete_(req.query.soldOnWebsite, req.params.id, req.user.id);
     res.status(204).send();
   } catch (err) {
+    console.log(err);
     res.status(500).send("Error deleting ad");
   }
 };

@@ -37,7 +37,9 @@ CREATE TABLE `ads` (
   `general_state` varchar(255),
   `mecanic_state` varchar(255),
   `esthetic_state` varchar(255),
-  `guarantee` boolean
+  `guarantee` boolean,
+  `sold` boolean,
+  `sold_on_website` boolean,
 );
 
 CREATE TABLE `cargo_bike` (
