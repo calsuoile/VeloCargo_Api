@@ -12,19 +12,8 @@ const getOneCargoBike = (id) => {
 
 //crée un vélo cargo:
 const create = async ({
-  country,
-  department,
-  brand,
-  model,
   frame_size,
-  build_year,
-  bicycode,
-  kms,
   length,
-  general_state,
-  mecanic_state,
-  esthetic_state,
-  guarantee,
   info_guarantee,
   volume_box,
   electric,
@@ -32,21 +21,10 @@ const create = async ({
   battery_volt,
 }) => {
   db.promise().query(
-    "INSERT INTO cargo_bike (country, department, brand, model, frame_size, build_year, bicycode, kms, length, general_state, mecanic_state, esthetic_state, guarantee, info_guarantee, volume_box, electric, engine_power, battery_volt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    "INSERT INTO cargo_bike (frame_size, length, info_guarantee, volume_box, electric, engine_power, battery_volt) VALUES (?, ?, ?, ?, ?, ?, ?)",
     [
-      country,
-      department,
-      brand,
-      model,
       frame_size,
-      parseInt(build_year) ? parseInt(build_year) : null,
-      bicycode,
-      parseInt(kms) ? parseInt(kms) : null,
       parseFloat(length) ? parseFloat(length) : null,
-      general_state,
-      mecanic_state,
-      esthetic_state,
-      guarantee,
       info_guarantee,
       parseFloat(volume_box) ? parseFloat(volume_box) : null,
       electric,
