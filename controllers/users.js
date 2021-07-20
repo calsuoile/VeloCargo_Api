@@ -58,11 +58,13 @@ const updateUser = async (req, res) => {
 //authorisations
 const loginUser = async (req, res) => {
   const [user] = await findByEmail(req.body?.email);
-  if (!user) {
+  if (!user.length) {
     res.status(401).send("Unauthorized");
+    return;
   }
   if (!validatePassword(req.body?.password, user[0].password)) {
     res.status(401).send("Unauthorized");
+    return;
   }
 
   const payload = {
