@@ -37,8 +37,8 @@ const create = async ({
 };
 
 //supprime un vélo cargo:
-const delete_ = (id) => {
+/*const delete_ = (id) => {
   return db.promise().query("DELETE FROM cargo_bike WHERE id=?", [id]);
-};
+};*/
 
-module.exports = { findMany, create, getOneCargoBike, delete_ };
+module.exports = { findMany, create, getOneCargoBike };

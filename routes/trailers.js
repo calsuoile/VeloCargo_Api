@@ -10,6 +10,6 @@ const { verifyToken } = require("../middleware/auth");
 trailersRouter.get("/", getTrailers);
 trailersRouter.get("/:id", getTrailer);
 trailersRouter.post("/", verifyToken, createTrailer);
-trailersRouter.delete("/:id", verifyToken, deleteTrailer);
+//trailersRouter.delete("/:id", verifyToken, deleteTrailer);
 
 module.exports = trailersRouter;

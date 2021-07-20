@@ -17,31 +17,46 @@ const getArticle = async (req, res) => {
 };
 
 const createArticle = async (req, res) => {
-  try {
-    await create(req.body);
-    res.status(201).send("Article has been created");
-  } catch (err) {
-    res.status(500).send("Error creating article");
+  if (checkAdmin(req.user, res)) {
+    try {
+      await create(req.body);
+      res.status(201).send("Article has been created");
+    } catch (err) {
+      res.status(500).send("Error creating article");
+    }
   }
 };
 
 const updateArticle = async (req, res) => {
-  try {
-    await update(req.params.id, req.body);
-    res.status(200).send("Article has been updated");
-  } catch (err) {
-    res.status(500).send("Error updating article");
+  if (checkAdmin(req.user, res)) {
+    try {
+      await update(req.params.id, req.body);
+      res.status(200).send("Article has been updated");
+    } catch (err) {
+      res.status(500).send("Error updating article");
+    }
   }
 };
 
 const deleteArticle = async (req, res) => {
-  try {
-    await delete_(req.params.id);
-    res.status(204).send();
-  } catch (err) {
-    console.log(err);
-    res.status(500).send("Error deleting article");
+  if (checkAdmin(req.user, res)) {
+    try {
+      await delete_(req.params.id);
+      res.status(204).send();
+    } catch (err) {
+      console.log(err);
+      res.status(500).send("Error deleting article");
+    }
   }
+};
+
+const checkAdmin = (user, res) => {
+  if (user?.role === "admin") {
+    return true;
+  }
+
+  res.status(401).send("Unauthorized");
+  return false;
 };
 
 module.exports = {
