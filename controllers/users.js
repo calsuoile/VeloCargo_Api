@@ -4,7 +4,6 @@ const {
   create,
   update,
   findByEmail,
-  createFav,
   getFavorites,
   getOneUserAds,
 } = require("../models/users");
@@ -22,16 +21,6 @@ const getUsers = async (req, res) => {
 const getUser = async (req, res) => {
   const [user] = await getOneUser(req.params.id);
   res.status(200).json(user);
-};
-
-const createFavorite = async (req, res) => {
-  try {
-    await createFav(req.body);
-    res.status(201).send("Favorite has been created");
-  } catch (err) {
-    console.log(err);
-    res.status(500).send("Error creating favorite");
-  }
 };
 
 const getUserFavorites = async (req, res) => {
@@ -90,7 +79,9 @@ const loginUser = async (req, res) => {
 };
 
 const getProfile = async (req, res) => {
-  res.json(req.user);
+  // get favorites of users
+  const [favorites] = await getFavorites(req.user.id);
+  res.json({ ...req.user, favorites: favorites.map((item) => item.ad_id) });
 };
 
 module.exports = {
@@ -99,7 +90,6 @@ module.exports = {
   getUserAds,
   createUser,
   getUserFavorites,
-  createFavorite,
   updateUser,
   loginUser,
   getProfile,
