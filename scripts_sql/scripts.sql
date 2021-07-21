@@ -26,7 +26,51 @@ CREATE TABLE `ads` (
   `accessories_id` int,
   `trailer_id` int,
   `cargo_bike_id` int,
-  `city` varchar(50)
+  `city` varchar(50),
+  `country` varchar(255) NOT NULL,
+  `department` varchar(255) NOT NULL,
+  `brand` varchar(255),
+  `model` varchar(255),
+  `build_year` year,
+  `bicycode` varchar(12),
+  `kms` int,
+  `general_state` varchar(255),
+  `mecanic_state` varchar(255),
+  `esthetic_state` varchar(255),
+  `guarantee` boolean,
+  `sold` boolean,
+  `sold_on_website` boolean,
+);
+
+CREATE TABLE `cargo_bike` (
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `frame_size` varchar(255),
+  `length` float,
+  `info_guarantee` varchar(255),
+  `volume_box` float,
+  `electric` boolean NOT NULL,
+  `engine_power` int,
+  `battery_volt` int
+);
+
+CREATE TABLE `accessories` (
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `rain_tente` varchar(255),
+  `protective_cover` varchar(255),
+  `bicycle_bag` varchar(255),
+  `seat_cushion` varchar(255),
+  `footrest_footwedge` varchar(255),
+  `crutches` varchar(255),
+  `luggage_rack` varchar(255),
+  `child_seat` varchar(255),
+  `others` varchar(255)
+);
+
+CREATE TABLE `trailer` (
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `max_load_kg` int,
+  `max_children` int,
+  `volume_trail` float
 );
 
 CREATE TABLE `articles` (
@@ -49,61 +93,6 @@ CREATE TABLE `favorites` (
   `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `user_id` int,
   `ad_id` int
-);
-
-CREATE TABLE `cargo_bike` (
-  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `country` varchar(255) NOT NULL,
-  `department` varchar(255) NOT NULL,
-  `brand` varchar(255),
-  `model` varchar(255),
-  `frame_size` varchar(255),
-  `build_year` year,
-  `bicycode` varchar(12),
-  `kms` int,
-  `length` float,
-  `general_state` varchar(255) NOT NULL,
-  `mecanic_state` varchar(255),
-  `esthetic_state` varchar(255),
-  `guarantee` boolean,
-  `info_guarantee` varchar(255),
-  `volume_box` float,
-  `electric` boolean NOT NULL,
-  `engine_power` int,
-  `battery_volt` int
-);
-
-CREATE TABLE `trailer` (
-  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `country` varchar(255) NOT NULL,
-  `department` varchar(255) NOT NULL,
-  `brand` varchar(255),
-  `model` varchar(255),
-  `build_year` year,
-  `bicycode` varchar(12),
-  `kms` int,
-  `general_state` varchar(255),
-  `mecanic_state` varchar(255),
-  `esthetic_state` varchar(255),
-  `guarantee` boolean,
-  `max_load_kg` int,
-  `max_children` int,
-  `volume_trail` float
-);
-
-CREATE TABLE `accessories` (
-  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `country` varchar(255) NOT NULL,
-  `department` varchar(255) NOT NULL,
-  `rain_tente` varchar(255),
-  `protective_cover` varchar(255),
-  `bicycle_bag` varchar(255),
-  `seat_cushion` varchar(255),
-  `footrest_footwedge` varchar(255),
-  `crutches` varchar(255),
-  `luggage_rack` varchar(255),
-  `child_seat` varchar(255),
-  `others` varchar(255)
 );
 
 ALTER TABLE `favorites` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
@@ -137,17 +126,17 @@ INSERT INTO articles (title, text, photo, created_at) VALUES ("Comment acheter u
 
 -- créer un vélo cargo:
 
-INSERT INTO cargo_bike (country, department, brand, model, frame_size, build_year, bicycode, kms, length, general_state, mecanic_state, esthetic_state, guarantee, info_guarantee, volume_box, electric, engine_power, battery_volt) VALUES ('France', 'Gironde', 'Peugeot', 'veloP15', '40', '2012', '123936789039', 2200, 200.5, 'bon', 'bon', 'bon', true, "", 3.5, true, 120, 140);
-INSERT INTO cargo_bike (country, department, brand, model, frame_size, build_year, bicycode, kms, length, general_state, mecanic_state, esthetic_state, guarantee, info_guarantee, volume_box, electric, engine_power, battery_volt) VALUES ('France', 'Landes', 'Peugeot', 'veloP13', '40', '2015', '123936789039', 2500, 200.5, 'mauvais', 'mauvais', 'mauvais', true, "", 3.5, true, 120, 140);
+INSERT INTO cargo_bike (frame_size, length, info_guarantee, volume_box, electric, engine_power, battery_volt) VALUES ('40', 200.5, true, "", 3.5, 120, 140);
+INSERT INTO cargo_bike (frame_size, length, info_guarantee, volume_box, electric, engine_power, battery_volt) VALUES ('40', 200.5, true, "", 3.5, 120, 140);
 
 -- créer un accessoire:
 
-INSERT INTO accessories (country, department, rain_tente, protective_cover, bicycle_bag, seat_cushion, footrest_footwedge, crutches, luggage_rack, child_seat, others) VALUES ('France', 'Gironde', '', '', '', 'oui', '', '', '', '', '');
-INSERT INTO accessories (country, department, rain_tente, protective_cover, bicycle_bag, seat_cushion, footrest_footwedge, crutches, luggage_rack, child_seat, others) VALUES ('France', 'Landes', '', '', 'oui', '', '', '', '', '', '');
+INSERT INTO accessories (rain_tente, protective_cover, bicycle_bag, seat_cushion, footrest_footwedge, crutches, luggage_rack, child_seat, others) VALUES ('', '', '', 'oui', '', '', '', '', '');
+INSERT INTO accessories (rain_tente, protective_cover, bicycle_bag, seat_cushion, footrest_footwedge, crutches, luggage_rack, child_seat, others) VALUES ('', '', 'oui', '', '', '', '', '', '');
 
 
 -- créer un remorque:
 
-INSERT INTO trailer (country, department, brand, model, build_year, bicycode, kms, general_state, mecanic_state, esthetic_state, guarantee, max_load_kg, max_children, volume_trail) VALUES ('France', 'Gironde', 'Peugeot', 'veloP1456', '2015', '123456789012', 1380, 'bon', 'bon', 'bon', false, 120, 3, 4.5);
-INSERT INTO trailer (country, department, brand, model, build_year, bicycode, kms, general_state, mecanic_state, esthetic_state, guarantee, max_load_kg, max_children, volume_trail) VALUES ('France', 'Landes', 'Peugeot', 'veloP1498', '2018', '123456789012', 1500, 'bon', 'bon', 'bon', true, 120, 3, 4.5);
+INSERT INTO trailer (max_load_kg, max_children, volume_trail) VALUES (120, 3, 4.5);
+INSERT INTO trailer (max_load_kg, max_children, volume_trail) VALUES (120, 3, 4.5);
 

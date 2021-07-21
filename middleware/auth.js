@@ -6,7 +6,6 @@ const verifyToken = (req, res, next) => {
   if (bearerHeader) {
     const bearer = bearerHeader.split(" ");
     const bearerToken = bearer[1];
-    console.log(bearerToken);
     payload = jwt.verify(bearerToken, process.env.JWT_SECRET);
     if (!payload) {
       res.sendStatus(401);
