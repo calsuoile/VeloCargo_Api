@@ -4,6 +4,7 @@ const adsRouter = require("./ads");
 const cargoBikesRouter = require("./cargoBikes");
 const accessoriesRouter = require("./accessories");
 const trailersRouter = require("./trailers");
+const imagesRouter = require("./images");
 
 module.exports = (app) => {
   app.use("/users", usersRouter);
@@ -12,4 +13,5 @@ module.exports = (app) => {
   app.use("/cargobikes", cargoBikesRouter);
   app.use("/accessories", accessoriesRouter);
   app.use("/trailers", trailersRouter);
+  app.use("/images", imagesRouter);
 };

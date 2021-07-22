@@ -12,8 +12,6 @@ const getOneAccessory = (id) => {
 
 //crée un accessoire:
 const create = async ({
-  country,
-  department,
   rain_tente,
   protective_cover,
   bicycle_bag,
@@ -25,10 +23,8 @@ const create = async ({
   others,
 }) => {
   db.promise().query(
-    "INSERT INTO accessories (country, department, rain_tente, protective_cover, bicycle_bag, seat_cushion, footrest_footwedge, crutches, luggage_rack, child_seat, others) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    "INSERT INTO accessories (rain_tente, protective_cover, bicycle_bag, seat_cushion, footrest_footwedge, crutches, luggage_rack, child_seat, others) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
     [
-      country,
-      department,
       rain_tente,
       protective_cover,
       bicycle_bag,
@@ -44,4 +40,9 @@ const create = async ({
   return data[0];
 };
 
-module.exports = { findMany, create, getOneAccessory };
+//supprime un accessoire:
+const delete_ = (id) => {
+  return db.promise().query("DELETE FROM accessories WHERE id=?", [id]);
+};
+
+module.exports = { findMany, create, getOneAccessory, delete_ };

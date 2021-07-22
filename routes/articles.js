@@ -6,11 +6,12 @@ const {
   updateArticle,
   deleteArticle,
 } = require("../controllers/articles");
+const { verifyToken } = require("../middleware/auth");
 
 articlesRouter.get("/", getArticles);
 articlesRouter.get("/:id", getArticle);
-articlesRouter.post("/", createArticle);
-articlesRouter.patch("/:id", updateArticle);
-articlesRouter.delete("/:id", deleteArticle);
+articlesRouter.post("/", verifyToken, createArticle);
+articlesRouter.patch("/:id", verifyToken, updateArticle);
+articlesRouter.delete("/:id", verifyToken, deleteArticle);
 
 module.exports = articlesRouter;

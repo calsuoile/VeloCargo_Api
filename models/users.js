@@ -26,11 +26,19 @@ const getOneUserAds = (id) => {
 };
 
 //crée un une annonce favorite dans un user:
-const createFav = ({ user_id, ad_id }) => {
-  console.log(user_id, ad_id);
+const createFav = (user_id, ad_id) => {
   return db
     .promise()
     .query("INSERT INTO favorites (user_id, ad_id) VALUES (? ,?)", [
+      user_id,
+      ad_id,
+    ]);
+};
+
+const deleteFav = (user_id, ad_id) => {
+  return db
+    .promise()
+    .query("DELETE FROM favorites WHERE user_id = ? and ad_id = ?", [
       user_id,
       ad_id,
     ]);
@@ -43,7 +51,7 @@ const create = ({
   phone_number,
   email,
   password,
-  city
+  city,
 }) => {
   return db
     .promise()
@@ -57,7 +65,7 @@ const create = ({
         new Date(),
         password,
         city,
-        "role_client"
+        "role_client",
       ]
     );
 };
@@ -83,4 +91,5 @@ module.exports = {
   getFavorites,
   createFav,
   getOneUserAds,
+  deleteFav,
 };
