@@ -28,7 +28,7 @@ const getAd = async (req, res) => {
 
 const getAds = async (req, res) => {
   const [[ads], [count]] = await findMany(req.query);
-  res.status(200).json({ data: ads, metadata: count[0] });
+  res.status(200).json({ data: ads, metadata: count[0] }); //metadata pour la pagination. 
 };
 
 const deleteAd = async (req, res) => {
