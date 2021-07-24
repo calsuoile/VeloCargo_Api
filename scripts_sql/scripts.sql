@@ -39,7 +39,7 @@ CREATE TABLE `ads` (
   `esthetic_state` varchar(255),
   `guarantee` boolean,
   `sold` boolean,
-  `sold_on_website` boolean,
+  `sold_on_website` boolean
 );
 
 CREATE TABLE `cargo_bike` (
