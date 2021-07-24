@@ -13,7 +13,7 @@ const queryBuilder = (criteria) => {
         if (!parseInt(value)) {
           //si pas possible de convertir un string en int(ligne 13)
           if (value === "true" || value === "false") {
-            return `${key} = "${value === true ? 1 : 0}"`;
+            return `${key} = "${value === 'true' ? 1 : 0}"`;
           } else {
             return `${key} = "${value}"`;
           }
