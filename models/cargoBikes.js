@@ -1,94 +1,44 @@
 const db = require("../db");
 
+//récupère tous les vélos cargo:
 const findMany = () => {
   return db.promise().query("SELECT * FROM cargo_bike");
 };
 
+//récupère un vélo cargo:
 const getOneCargoBike = (id) => {
   return db.promise().query("SELECT * FROM cargo_bike WHERE id=?", [id]);
 };
 
+//crée un vélo cargo:
 const create = async ({
-  type,
-  country,
-  department,
-  brand,
-  model,
   frame_size,
-  build_year,
-  bicycode,
-  kms,
   length,
-  general_state,
-  mecanic_state,
-  esthetic_state,
-  guarantee,
   info_guarantee,
-  max_front_children,
-  max_back_children,
   volume_box,
   electric,
-  engine_brand,
-  engine_position,
-  engine_torque,
   engine_power,
   battery_volt,
-  battery_capacity,
-  battery_power,
-  battery_nb_cycle,
-  speeds_back,
-  speeds_plate,
-  rain_cover,
-  child_seat,
-  protective_cover,
-  safety_lock,
-  other_items,
-  funny_picture,
-  bench_box,
 }) => {
   db.promise().query(
-    "INSERT INTO cargo_bike (type, country, department, brand, model, frame_size, build_year, bicycode, kms, length, general_state, mecanic_state, esthetic_state, guarantee, info_guarantee, max_front_children, max_back_children, volume_box, electric, engine_brand, engine_position, engine_torque, engine_power, battery_volt, battery_capacity, battery_power, battery_nb_cycle, speeds_back, speeds_plate, rain_cover, child_seat, protective_cover, safety_lock, other_items, funny_picture, bench_box) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    "INSERT INTO cargo_bike (frame_size, length, info_guarantee, volume_box, electric, engine_power, battery_volt) VALUES (?, ?, ?, ?, ?, ?, ?)",
     [
-      type,
-      country,
-      department,
-      brand,
-      model,
       frame_size,
-      build_year,
-      bicycode,
-      kms,
-      length,
-      general_state,
-      mecanic_state,
-      esthetic_state,
-      guarantee,
+      parseFloat(length) ? parseFloat(length) : null,
       info_guarantee,
-      max_front_children,
-      max_back_children,
-      volume_box,
+      parseFloat(volume_box) ? parseFloat(volume_box) : null,
       electric,
-      engine_brand,
-      engine_position,
-      engine_torque,
-      engine_power,
-      battery_volt,
-      battery_capacity,
-      battery_power,
-      battery_nb_cycle,
-      speeds_back,
-      speeds_plate,
-      rain_cover,
-      child_seat,
-      protective_cover,
-      safety_lock,
-      other_items,
-      funny_picture,
-      bench_box,
+      parseInt(engine_power) ? parseInt(engine_power) : null,
+      parseInt(battery_volt) ? parseInt(battery_volt) : null,
     ]
   );
   const [data] = await db.promise().query("SELECT LAST_INSERT_ID() AS id");
   return data[0];
 };
+
+//supprime un vélo cargo:
+/*const delete_ = (id) => {
+  return db.promise().query("DELETE FROM cargo_bike WHERE id=?", [id]);
+};*/
 
 module.exports = { findMany, create, getOneCargoBike };

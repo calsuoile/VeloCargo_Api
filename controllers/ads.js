@@ -1,4 +1,25 @@
-const { findMany, create, getOneAd, delete_ } = require("../models/ads");
+const { findMany, getOneAd, delete_ } = require("../models/ads");
+const { createFav, deleteFav } = require("../models/users");
+
+const createFavorite = async (req, res) => {
+  try {
+    await createFav(req.user.id, req.params.id);
+    res.status(201).send("Favorite has been created");
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Error creating favorite");
+  }
+};
+
+const deleteFavorite = async (req, res) => {
+  try {
+    await deleteFav(req.user.id, req.params.id);
+    res.status(204).send();
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Error deleting favorite");
+  }
+};
 
 const getAd = async (req, res) => {
   const [ad] = await getOneAd(req.params.id);
@@ -6,31 +27,24 @@ const getAd = async (req, res) => {
 };
 
 const getAds = async (req, res) => {
-  const [ads] = await findMany(req.query);
-  res.status(200).json(ads);
-};
-
-const createAd = async (req, res) => {
-  try {
-    await create(req.body);
-    res.status(201).send("Ad has been created");
-  } catch (err) {
-    res.status(500).send("Error creating ad");
-  }
+  const [[ads], [count]] = await findMany(req.query);
+  res.status(200).json({ data: ads, metadata: count[0] }); //metadata pour la pagination. 
 };
 
 const deleteAd = async (req, res) => {
   try {
-    await delete_(req.params.id);
+    await delete_(req.query.soldOnWebsite, req.params.id, req.user.id);
     res.status(204).send();
   } catch (err) {
+    console.log(err);
     res.status(500).send("Error deleting ad");
   }
 };
 
 module.exports = {
   getAds,
-  createAd,
   getAd,
   deleteAd,
+  createFavorite,
+  deleteFavorite,
 };

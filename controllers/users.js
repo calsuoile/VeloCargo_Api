@@ -4,9 +4,8 @@ const {
   create,
   update,
   findByEmail,
-  createFav,
   getFavorites,
-  getOneUserAds
+  getOneUserAds,
 } = require("../models/users");
 const {
   hashPassword,
@@ -24,16 +23,6 @@ const getUser = async (req, res) => {
   res.status(200).json(user);
 };
 
-const createFavorite = async (req, res) => {
-  try {
-    await createFav(req.body);
-    res.status(201).send("Favorite has been created");
-  } catch (err) {
-    console.log(err);
-    res.status(500).send("Error creating favorite");
-  }
-};
-
 const getUserFavorites = async (req, res) => {
   const [favorites] = await getFavorites(req.params.id);
   res.status(200).json(favorites);
@@ -48,10 +37,11 @@ const createUser = async (req, res) => {
   try {
     await create({
       ...req.body,
-      password: await hashPassword(req.body.password),
+      password: await hashPassword(req.body.password), //crypte le MDP du user
     });
     res.status(201).send("User has been created");
   } catch (err) {
+    console.log(err);
     res.status(500).send("Error creating user");
   }
 };
@@ -65,13 +55,16 @@ const updateUser = async (req, res) => {
   }
 };
 
+//authorisations
 const loginUser = async (req, res) => {
   const [user] = await findByEmail(req.body?.email);
-  if (!user) {
+  if (!user.length) {
     res.status(401).send("Unauthorized");
+    return;
   }
   if (!validatePassword(req.body?.password, user[0].password)) {
     res.status(401).send("Unauthorized");
+    return;
   }
 
   const payload = {
@@ -80,7 +73,7 @@ const loginUser = async (req, res) => {
   };
 
   res.json({
-    acces_token: jwt.sign(payload, process.env.JWT_SECRET, {
+    access_token: jwt.sign(payload, process.env.JWT_SECRET, {
       algorithm: "HS256",
       expiresIn: 3600 * 24,
     }),
@@ -88,7 +81,9 @@ const loginUser = async (req, res) => {
 };
 
 const getProfile = async (req, res) => {
-  res.json(req.user);
+  // get favorites of users
+  const [favorites] = await getFavorites(req.user.id);
+  res.json({ ...req.user, favorites: favorites.map((item) => item.ad_id) });
 };
 
 module.exports = {
@@ -97,7 +92,6 @@ module.exports = {
   getUserAds,
   createUser,
   getUserFavorites,
-  createFavorite,
   updateUser,
   loginUser,
   getProfile,

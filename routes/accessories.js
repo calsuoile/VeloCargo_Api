@@ -3,10 +3,13 @@ const {
   getAccessories,
   createAccessory,
   getAccessory,
+  deleteAccessory,
 } = require("../controllers/accessories");
+const { verifyToken } = require("../middleware/auth");
 
 accessoriesRouter.get("/", getAccessories);
 accessoriesRouter.get("/:id", getAccessory);
-accessoriesRouter.post("/", createAccessory);
+accessoriesRouter.post("/", verifyToken, createAccessory);
+accessoriesRouter.delete("/:id", verifyToken, deleteAccessory);
 
 module.exports = accessoriesRouter;
