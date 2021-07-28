@@ -10,9 +10,13 @@ const { verifyToken } = require("../middleware/auth");
 
 articlesRouter.get("/", getArticles);
 articlesRouter.get("/:id", getArticle);
-articlesRouter.post("/", verifyToken, createArticle);
+// articlesRouter.post("/", verifyToken, createArticle);
+articlesRouter.post("/", createArticle);
+
 articlesRouter.patch("/:id", verifyToken, updateArticle);
-articlesRouter.delete("/:id", verifyToken, deleteArticle);
+// articlesRouter.delete("/:id", verifyToken, deleteArticle);
+articlesRouter.delete("/:id", deleteArticle);
+
 
 
 module.exports = articlesRouter;
